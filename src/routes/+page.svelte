@@ -4,6 +4,7 @@
 	import ScrollTrigger from 'gsap/ScrollTrigger';
 	import ScrollSmoother from 'gsap/ScrollSmoother';
 	import Hero from '$lib/landing/hero.svelte';
+	import About from '$lib/landing/about.svelte';
 
 	onMount(() => {
 		gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
@@ -24,7 +25,7 @@
 <div id="smooth-wrapper">
 	<div id="smooth-content">
 		<div class="page bg-[#FAF9F6] text-2xl text-black" id="hero"><Hero /></div>
-		<div class="page bg-black" id="about">about page</div>
+		<div class="page bg-black" id="about"><About/></div>
 		<div class="page" id="showcase"></div>
 		<div class="page" id="review"></div>
 		<div class="page" id="vision"></div>

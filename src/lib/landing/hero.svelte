@@ -1,4 +1,6 @@
 <script>
+	import gsap from 'gsap';
+	import {onMount} from 'svelte';
 	// Array of image URLs (replace with your images)
 	let images = [
 		'/img1.jpg',
@@ -13,7 +15,23 @@
 		'/img10.jpg'
 	];
 
-
+	  onMount(() => {
+        gsap.from('.center-text', {
+            opacity: 0,
+            y: 40,
+            duration: 1.2,
+            ease: 'power2.in'
+        });
+        gsap.from('.image-box', {
+            opacity: 0,
+            scale: 0.8,
+            rotate: -10,
+            duration: 1.2,
+            ease: 'power2.in',
+            stagger: 0.08,
+            delay: 0.2
+        });
+    });
 	let positions = images.map(() => ({
 		top: Math.random() * 80 + 5, // 5% to 85%
 		left: Math.random() * 80 + 5 // 5% to 85%
@@ -56,6 +74,7 @@
 		border: black solid 1px;
 		display: flex;
 		align-items: center;
+		transition: all ease-in-out 2s;
 		justify-content: center;
 	}
 	.image-box img {
