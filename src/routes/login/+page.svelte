@@ -63,6 +63,13 @@
 			},
 			'+=0.1'
 		);
+
+		// Fade in the form after a short delay for a smooth transition
+		gsap.fromTo(
+			'.login-form',
+			{ opacity: 0, y: 40 },
+			{ opacity: 1, y: 0, duration: 1, ease: 'power2.out', delay: 0.3 }
+		);
 	});
 
 	function handleMouseMove(event) {
@@ -84,49 +91,49 @@
 
 <div class="flex h-screen items-center bg-[#f9eae1]">
 
-	<form class="flex z-10 bg-[#f9eae1] h-full w-[60vw] flex-col justify-center space-y-6 border p-10 shadow-md">
-		<h2 class="font-instrument text-center text-6xl">Login</h2>
-		<div>
-			<label class="font-libre mb-1 block text-gray-700" for="email">Email</label>
-			<input
-				id="email"
-				type="email"
-				class="w-full rounded-lg border border-gray-300 bg-neutral-50 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-				placeholder="Enter your email"
-				required
-			/>
-		</div>
-		<div>
-			<label class="font-libre mb-1 block text-gray-700" for="password">Password</label>
-			<input
-				id="password"
-				type="password"
-				class="w-full rounded-lg border border-gray-300 bg-neutral-50 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
-				placeholder="Enter your password"
-				required
-			/>
-		</div>
-		<button
-			type="submit"
-			class="font-kalnia w-full rounded-xl bg-red-500 py-2 text-white transition hover:bg-blue-700"
-		>
-			Login
-		</button>
-	</form>
+    <form class="login-form flex z-10 bg-[#f9eae1] h-full w-[60vw] flex-col justify-center space-y-6 border p-10 shadow-md">
+        <h2 class="font-instrument text-center text-6xl">Login</h2>
+        <div>
+            <label class="font-libre mb-1 block text-gray-700" for="email">Email</label>
+            <input
+                id="email"
+                type="email"
+                class="w-full rounded-lg border border-gray-300 bg-neutral-50 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                placeholder="Enter your email"
+                required
+            />
+        </div>
+        <div>
+            <label class="font-libre mb-1 block text-gray-700" for="password">Password</label>
+            <input
+                id="password"
+                type="password"
+                class="w-full rounded-lg border border-gray-300 bg-neutral-50 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                placeholder="Enter your password"
+                required
+            />
+        </div>
+        <button
+            type="submit"
+            class="font-kalnia w-full rounded-xl bg-red-500 py-2 text-white transition hover:bg-blue-700"
+        >
+            Login
+        </button>
+    </form>
 
-    	<div
-		class="canvas-container  md:-mt-10 md:-ml-20"
-		role="region"
-		style="width: 130vw; height: 110vh; transform: translate({containerOffset.x}px, {containerOffset.y}px); transition: transform .3s linear; "
-	>
-		<div>
-			{#each images as img, i}
-				<div class="image-box" style="top: {positions[i].top}%; left: {positions[i].left}%;">
-					<img src={img} alt="Paper Piece" />
-				</div>
-			{/each}
+    <div
+        class="canvas-container  md:-mt-10 md:-ml-20"
+        role="region"
+        style="width: 130vw; height: 110vh; transform: translate({containerOffset.x}px, {containerOffset.y}px); transition: transform .3s linear; "
+    >
+        <div>
+            {#each images as img, i}
+                <div class="image-box" style="top: {positions[i].top}%; left: {positions[i].left}%;">
+                    <img src={img} alt="Paper Piece" />
+                </div>
+            {/each}
 		</div>
-	</div>
+    </div>
 </div>
 
 <style>
