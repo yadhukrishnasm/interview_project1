@@ -3,42 +3,33 @@
 	import { onMount } from 'svelte';
 
 	let images = [
-		'/img1.jpg',
-		'/img2.jpg',
-		'/img3.jpg',
-		'/img4.jpg',
-		'/img5.jpg',
-		'/img6.jpg',
-		'/img7.jpg',
-		'/img8.jpg',
-		'/img9.jpg',
-		'/img10.jpg'
+		'/images/7.jpg',
+		'/images/8.jpg',
+		'/images/9.jpg',
+		'/images/10.jpg',
+		'/images/12.jpg',
+		'/images/14.jpg',
+		'/images/13.jpg',
+		'/images/15.jpg',
+		'/images/16.jpg',
+		'/images/17.jpg',
+		'/images/18.jpg',
+		'/images/19.jpg',
+		'/images/20.jpg',
+		'/images/21.jpg',
+		'/images/22.jpg'
 	];
 
-	onMount(() => {
-		gsap.to('.center-text', {
-			y: -40,
-			opacity: 1,
-			duration: 1.2,
-			ease: 'power2.in'
-		});
-		gsap.to('.image-box', {
-			opacity: 1,
-			duration: 1.2,
-			ease: 'power2.in'
-		});
-	});
-
-	let minDistance = 18;
+	let minDistance = 20;
 	let positions = [];
-	let offsets = Array(images.length).fill({ x: 0, y: 0 });
+	let containerOffset = { x: 0, y: 0 };
 
 	for (let i = 0; i < images.length; i++) {
 		let tries = 0;
 		while (true) {
-			let top = Math.random() * 80 + 5;
-			let left = Math.random() * 80 + 5;
-			if (top > 35 && top < 65 && left > 35 && left < 65) continue;
+			let top = Math.random() * 100;
+			let left = Math.random() * 100;
+			if (top > 40 && top < 60 && left > 50 && left < 50) continue;
 			let tooClose = positions.some((pos) => {
 				let dx = pos.left - left;
 				let dy = pos.top - top;
@@ -49,48 +40,71 @@
 				break;
 			}
 			tries++;
-			if (tries > 50) {
+			if (tries > 100) {
 				positions.push({ top, left });
 				break;
 			}
 		}
 	}
 
+	onMount(() => {
+		const tl = gsap.timeline();
+		tl.to('.center-text', {
+			y: -40,
+			opacity: 1,
+			duration: 1.2,
+			ease: 'power2.in'
+		}).to(
+			'.image-box',
+			{
+				opacity: 1,
+				duration: 1.2,
+				ease: 'power2.in',
+				stagger: 0.1
+			},
+			'+=0.1'
+		);
+	});
+
 	function handleMouseMove(event) {
 		const widthCenter = window.innerWidth / 2;
 		const heightCenter = window.innerHeight / 2;
 		const mouseX = event.clientX;
 		const mouseY = event.clientY;
-
-		offsets = positions.map((pos) => {
-			// Calculate image center in px
-			const imgX = (pos.left / 100) * window.innerWidth;
-			const imgY = (pos.top / 100) * window.innerHeight;
-			// Use your xY logic, but invert direction for "opposite"
-			const resX = -((mouseX - imgX) / 18); // adjust divisor for effect strength
-			const resY = -((mouseY - imgY) / 18);
-			return { x: resX, y: resY };
-		});
+		containerOffset = {
+			x: (widthCenter - mouseX) / 10,
+			y: (heightCenter - mouseY) / 10
+		};
 	}
+
+	onMount(() => {
+		window.addEventListener('mousemove', handleMouseMove);
+		return () => window.removeEventListener('mousemove', handleMouseMove);
+	});
 </script>
 
-<div class="canvas-container" >
-	<div class="center-text opacity-0">
-		<h1>Creating Artworks <br /> That Resonates <br /> Thy self</h1>
-		<p>Some description here.</p>
+<div>
+	<div class="center-text space-y-3">
+		<p style="letter-spacing: 2px;" class="font-instrument text-6xl">
+			Creating Artworks <br /> That Resonates Thy self
+		</p>
+		<p class="font-libre text-sm">A platform were you can share your art</p>
 	</div>
-	<div role="region"  on:mousemove={handleMouseMove}>
-		{#each images as img, i}
-			<div
-				class="image-box"
-				style="top: {positions[i].top}%; left: {positions[i].left}%; transform: translate({offsets[
-					i
-				]?.x || 0}px, {offsets[i]?.y ||
-					0}px); transition: transform 0.2s cubic-bezier(.4,0,.2,1); opacity: 0;"
-			>
-				<img src={img} alt="Paper Piece" />
-			</div>
-		{/each}
+	<div
+		class="canvas-container -mt-10 -ml-20 opacity-70"
+		role="region"
+		style="width: 130vw; height: 110vh; transform: translate({containerOffset.x}px, {containerOffset.y}px); transition: transform .3s linear; "
+	>
+		<div>
+			{#each images as img, i}
+				<div
+					class="image-box"
+					style="top: {positions[i].top}%; left: {positions[i].left}%;"
+				>
+					<img src={img} alt="Paper Piece" />
+				</div>
+			{/each}
+		</div>
 	</div>
 </div>
 
@@ -99,7 +113,6 @@
 		position: relative;
 		width: 100vw;
 		height: 100vh;
-		background: #f5f5f5;
 		overflow: hidden;
 	}
 
@@ -110,17 +123,17 @@
 		transform: translate(-50%, -50%);
 		z-index: 2;
 		text-align: center;
+		opacity: 0; /* Initial state for GSAP */
 	}
 	.image-box {
 		position: absolute;
-		width: 100px;
-		height: 100px;
 		z-index: 1;
-		border: black solid 1px;
 		display: flex;
+		height: 15%;
 		align-items: center;
-		transition: all ease-in-out 2s;
 		justify-content: center;
+		opacity: 0; /* Initial state for GSAP */
+		transition: all ease-in-out 2s;
 	}
 	.image-box img {
 		width: 90%;

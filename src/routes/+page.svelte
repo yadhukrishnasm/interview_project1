@@ -5,33 +5,26 @@
 	import ScrollSmoother from 'gsap/ScrollSmoother';
 	import Hero from '$lib/landing/hero.svelte';
 	import About from '$lib/landing/about.svelte';
+	import Showcase from '$lib/landing/showcase.svelte';
+	import Review from '$lib/landing/review.svelte';
+	import Footer from '$lib/landing/footer.svelte';
 
 	onMount(() => {
 		gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
-		ScrollTrigger.default({
+		ScrollTrigger.defaults({
 			toggleActions: 'restart pause resume pause',
-			scroller: ' .smooth-content'
-		});
-		// Example animation using ScrollTrigger
-		gsap.to('.page', {
-			scrollTrigger: {
-				duration: 2,
-				repeat: 1
-			}
+			scroller: '#smooth-content' // <-- fix selector
 		});
 	});
 </script>
 
 <div id="smooth-wrapper">
 	<div id="smooth-content">
-		<div class="page bg-[#FAF9F6] text-2xl text-black" id="hero"><Hero /></div>
-		<div class="page bg-black" id="about"><About/></div>
-		<div class="page" id="showcase"></div>
-		<div class="page" id="review"></div>
-		<div class="page" id="vision"></div>
-		<div class="page" id="membership"></div>
-		<div class="page" id="contact"></div>
-		<div class="page" id="footer"></div>
+		<div class="page text-2xl text-black" id="hero"><Hero /></div>
+		<div class="page" id="about"><About /></div>
+		<div class="page" id="showcase"><Showcase /></div>
+		<div class="page" id="review"><Review /></div>
+		<div class="page p-4" id="footer"><Footer /></div>
 	</div>
 </div>
 
@@ -40,9 +33,8 @@
 		width: 100%;
 		height: 100vh;
 		position: relative;
-		display: flex;
-		align-items: center;
 		overflow: hidden;
+		background-color: #f9eae1;
 		scroll-snap-align: start;
 	}
 	#smooth-content {
