@@ -37,13 +37,16 @@
 });
 </script>
 
-<div class="about-container grid grid-cols-2 text-white bg-black">
-    <div id="aboutLeft" class="flex w-full p-20 justify-end flex-col gap-6">
-        <p class="text-5xl font-bold">Your canvas online. <br> Discover. <br>Connect. <br>Create.</p>
+<div class="about-container relative md:grid md:grid-cols-2 text-white bg-black">
+    <div class="absolute">
+        <img src="/svg/taj.svg" class="h-60 m-20 hidden md:block" alt="">
     </div>
-    <div id="aboutRight" class="flex flex-wrap gap-6 justify-center scale-105 h-[100vh] overflow-hidden">
+    <div id="aboutLeft" class="flex w-full md:p-20 p-10 md:pt-0 pt-20 justify-end flex-col gap-6">
+        <p class="md:text-5xl text-2xl font-bold">Your canvas online. <br> Discover. <br>Connect. <br>Create.</p>
+    </div>
+    <div id="aboutRight" class="flex flex-wrap md:gap-6 gap-3 justify-center scale-105 h-[100vh] overflow-hidden">
         {#each artTags as tag}
-            <div class="tag px-5 py-3 font-extralight border-1 rounded-full w-fit text-3xl hover:bg-[#FAF9F6] hover:text-black transition-colors duration-2000">{tag}</div>
+            <div class="tag md:px-5 md:py-3 px-3 py-2 font-extralight border rounded-full w-fit md:text-3xl hover:bg-[#FAF9F6] hover:text-black transition-colors duration-2000">{tag}</div>
         {/each}
     </div>
 </div>

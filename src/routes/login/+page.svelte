@@ -24,7 +24,7 @@
 		'/images/22.jpg'
 	];
 
-	let minDistance = 20;
+	let minDistance = 10;
 	let positions = [];
 	let containerOffset = { x: 0, y: 0 };
 
@@ -53,13 +53,7 @@
 
 	onMount(() => {
 		const isSmallDevice = window.innerWidth <= 640;
-		const tl = gsap.timeline();
-		tl.to('.center-text', {
-			opacity: 1,
-			duration: 1.2,
-			ease: 'power2.in',
-			stagger: 1
-		}).to(
+		 gsap.to(
 			'.image-box',
 			{
 				opacity: 1,
@@ -88,15 +82,40 @@
 	});
 </script>
 
-<div>
-	<div class="center-text mb-20 space-y-3 md:mb-0">
-		<p style="letter-spacing: 2px;" class="font-instrument text-6xl">
-			Creating Artworks <br /> That Resonates Thy self
-		</p>
-		<p class="font-libre text-sm italic">A platform were you can share your art</p>
-	</div>
-	<div
-		class="canvas-container opacity-70 md:-mt-10 md:-ml-20"
+<div class="flex h-screen items-center bg-[#f9eae1]">
+
+	<form class="flex z-10 bg-[#f9eae1] h-full w-[60vw] flex-col justify-center space-y-6 border p-10 shadow-md">
+		<h2 class="font-instrument text-center text-6xl">Login</h2>
+		<div>
+			<label class="font-libre mb-1 block text-gray-700" for="email">Email</label>
+			<input
+				id="email"
+				type="email"
+				class="w-full rounded-lg border border-gray-300 bg-neutral-50 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+				placeholder="Enter your email"
+				required
+			/>
+		</div>
+		<div>
+			<label class="font-libre mb-1 block text-gray-700" for="password">Password</label>
+			<input
+				id="password"
+				type="password"
+				class="w-full rounded-lg border border-gray-300 bg-neutral-50 px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+				placeholder="Enter your password"
+				required
+			/>
+		</div>
+		<button
+			type="submit"
+			class="font-kalnia w-full rounded-xl bg-red-500 py-2 text-white transition hover:bg-blue-700"
+		>
+			Login
+		</button>
+	</form>
+
+    	<div
+		class="canvas-container  md:-mt-10 md:-ml-20"
 		role="region"
 		style="width: 130vw; height: 110vh; transform: translate({containerOffset.x}px, {containerOffset.y}px); transition: transform .3s linear; "
 	>
@@ -115,21 +134,12 @@
 		position: relative;
 		width: 100vw;
 		height: 100vh;
+        z-index: 1; 
 		overflow: hidden;
 	}
 
-	.center-text {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		z-index: 2;
-		text-align: center;
-		opacity: 0; /* Initial state for GSAP */
-	}
 	.image-box {
 		position: absolute;
-		z-index: 1;
 		display: flex;
 		height: 15%;
 		align-items: center;
